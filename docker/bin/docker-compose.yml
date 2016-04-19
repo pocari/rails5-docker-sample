@@ -1,0 +1,27 @@
+db:
+  container_name: db
+  build: ${DB_DOCKERFILE_DIR}
+  ports:
+    - "3306:3306"
+  environment:
+    MYSQL_DATABASE: ${MYSQL_DATABASE}
+    MYSQL_USER: ${MYSQL_USER}
+    MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+
+web:
+  container_name: web
+  build: ${WEB_DOCKERFILE_DIR}
+  ports:
+    - "3000:3000"
+  links:
+    - db:db
+  volumes:
+    - ${WEB_APP_ROOT_DIR}:/var/myapp
+  environment:
+    DATABASE_NAME: ${MYSQL_DATABASE}
+    DATABASE_USER: ${MYSQL_USER}
+    DATABASE_PASS: ${MYSQL_PASSWORD}
+    DATABASE_HOST: db
+  command: sh -c "bundle install --path=vendor/bundle && rm tmp/pids/server.pid; bin/rails s -b 0.0.0.0"
+
