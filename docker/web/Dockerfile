@@ -12,6 +12,6 @@ RUN \cp -fp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 VOLUME /var/myapp
 WORKDIR /var/myapp
 
-EXPOSE 3000
+EXPOSE 3000 1234 26162
 
 CMD ["bash"]
