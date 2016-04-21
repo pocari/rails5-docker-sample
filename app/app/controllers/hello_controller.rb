@@ -1,5 +1,5 @@
 class HelloController < ApplicationController
   def hello
-    @msg = "docker"
+    @msg = "docker docker docker"
   end
 end
